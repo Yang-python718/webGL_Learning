@@ -9,7 +9,7 @@
  */
 const ClockRange = {
   /**
-   * {@link Clock#tick} will always advances the clock in its current direction.
+   * {@link Clock#tick} 将始终朝着当前方向前进.
    *
    * @type {number}
    * @constant

@@ -8,7 +8,7 @@ import getTimestamp from "./getTimestamp.js";
 import JulianDate from "./JulianDate.js";
 
 /**
- * A simple clock for keeping track of simulated time.
+ * 一个简单的时钟，用于跟踪模拟时间。
  *
  * @alias Clock
  * @constructor
@@ -85,19 +85,19 @@ function Clock(options) {
   //>>includeEnd('debug');
 
   /**
-   * The start time of the clock.
+   * 时钟的开始时间。
    * @type {JulianDate}
    */
   this.startTime = startTime;
 
   /**
-   * The stop time of the clock.
+   * 时钟的停止时间。
    * @type {JulianDate}
    */
   this.stopTime = stopTime;
 
   /**
-   * Determines how the clock should behave when
+   * 确定时钟应如何表现
    * {@link Clock#startTime} or {@link Clock#stopTime}
    * is reached.
    * @type {ClockRange}
@@ -106,8 +106,8 @@ function Clock(options) {
   this.clockRange = defaultValue(options.clockRange, ClockRange.UNBOUNDED);
 
   /**
-   * Indicates whether {@link Clock#tick} can advance time.  This could be false if data is being buffered,
-   * for example.  The clock will only advance time when both
+   * 指示{@link Clock＃tick}是否可以提高时间。如果数据被缓冲，这可能是错误的，
+   * 例如。时钟只会在两者都会推进时间
    * {@link Clock#canAnimate} and {@link Clock#shouldAnimate} are true.
    * @type {boolean}
    * @default true
@@ -139,14 +139,14 @@ function Clock(options) {
   this.shouldAnimate = defaultValue(options.shouldAnimate, false);
   this.clockStep = defaultValue(
     options.clockStep,
-    ClockStep.SYSTEM_CLOCK_MULTIPLIER,
+    ClockStep.SYSTEM_CLOCK_MULTIPLIER
   );
 }
 
 Object.defineProperties(Clock.prototype, {
   /**
-   * The current time.
-   * Changing this property will change
+   *当前时间。
+   *更改此属性将更改
    * {@link Clock#clockStep} from {@link ClockStep.SYSTEM_CLOCK} to
    * {@link ClockStep.SYSTEM_CLOCK_MULTIPLIER}.
    * @memberof Clock.prototype
@@ -252,9 +252,9 @@ Object.defineProperties(Clock.prototype, {
 });
 
 /**
- * Advances the clock from the current time based on the current configuration options.
- * tick should be called every frame, regardless of whether animation is taking place
- * or not.  To control animation, use the {@link Clock#shouldAnimate} property.
+ *根据当前配置选项从当前时间开始时钟。
+ *无论动画发生是否发生，都应称呼每一帧
+ * 或不。为了控制动画， use the {@link Clock#shouldAnimate} property.
  *
  * @returns {JulianDate} The new value of the {@link Clock#currentTime} property.
  */
@@ -273,14 +273,14 @@ Clock.prototype.tick = function () {
         currentTime = JulianDate.addSeconds(
           currentTime,
           multiplier,
-          currentTime,
+          currentTime
         );
       } else {
         const milliseconds = currentSystemTime - this._lastSystemTime;
         currentTime = JulianDate.addSeconds(
           currentTime,
           multiplier * (milliseconds / 1000.0),
-          currentTime,
+          currentTime
         );
       }
 
@@ -303,7 +303,7 @@ Clock.prototype.tick = function () {
           currentTime = JulianDate.addSeconds(
             startTime,
             JulianDate.secondsDifference(currentTime, stopTime),
-            currentTime,
+            currentTime
           );
           this.onStop.raiseEvent(this);
         }

@@ -2,9 +2,9 @@ import Check from "./Check.js";
 import defined from "./defined.js";
 
 /**
- * A generic utility class for managing subscribers for a particular event.
- * This class is usually instantiated inside of a container class and
- * exposed as a property for others to subscribe to.
+ *用于管理特定事件的订户的通用公用课程。
+ *此类通常是在容器类内部实例化的，并且
+ *暴露为其他人供他人订阅的财产。
  *
  * @alias Event
  * @template Listener extends (...args: any[]) => void = (...args: any[]) => void
@@ -43,9 +43,9 @@ Object.defineProperties(Event.prototype, {
 });
 
 /**
- * Registers a callback function to be executed whenever the event is raised.
- * An optional scope can be provided to serve as the <code>this</code> pointer
- * in which the function will execute.
+ *每当提出事件时，注册一个要执行的回调函数。
+ *可以提供可选的范围，以用作</code>指针的<code>
+ *函数将执行。
  *
  * @param {Listener} listener The function to be executed when the event is raised.
  * @param {object} [scope] An optional object scope to serve as the <code>this</code>

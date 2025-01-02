@@ -250,7 +250,7 @@ function CesiumWidget(container, options) {
 
   const blurActiveElementOnCanvasFocus = defaultValue(
     options.blurActiveElementOnCanvasFocus,
-    true,
+    true
   );
 
   if (blurActiveElementOnCanvasFocus) {
@@ -276,7 +276,7 @@ function CesiumWidget(container, options) {
 
   const useBrowserRecommendedResolution = defaultValue(
     options.useBrowserRecommendedResolution,
-    true,
+    true
   );
 
   this._element = element;
@@ -347,7 +347,7 @@ function CesiumWidget(container, options) {
       scene.globe = globe;
       scene.globe.shadows = defaultValue(
         options.terrainShadows,
-        ShadowMode.RECEIVE_ONLY,
+        ShadowMode.RECEIVE_ONLY
       );
     }
 
@@ -392,7 +392,7 @@ function CesiumWidget(container, options) {
       //>>includeStart('debug', pragmas.debug);
       if (defined(options.terrainProvider)) {
         throw new DeveloperError(
-          "Specify either options.terrainProvider or options.terrain.",
+          "Specify either options.terrainProvider or options.terrain."
         );
       }
       //>>includeEnd('debug')
@@ -414,7 +414,7 @@ function CesiumWidget(container, options) {
     this._useDefaultRenderLoop = undefined;
     this.useDefaultRenderLoop = defaultValue(
       options.useDefaultRenderLoop,
-      true,
+      true
     );
 
     this._targetFrameRate = undefined;
@@ -459,19 +459,19 @@ function CesiumWidget(container, options) {
     eventHelper.add(
       scene.morphStart,
       CesiumWidget.prototype._clearTrackedObject,
-      this,
+      this
     );
 
     //Listen to data source events in order to track clock changes.
     eventHelper.add(
       dataSourceCollection.dataSourceAdded,
       CesiumWidget.prototype._onDataSourceAdded,
-      this,
+      this
     );
     eventHelper.add(
       dataSourceCollection.dataSourceRemoved,
       CesiumWidget.prototype._onDataSourceRemoved,
-      this,
+      this
     );
 
     eventHelper.add(scene.postRender, CesiumWidget.prototype._postRender, this);
@@ -489,12 +489,12 @@ function CesiumWidget(container, options) {
     eventHelper.add(
       dataSourceCollection.dataSourceAdded,
       CesiumWidget.prototype._dataSourceAdded,
-      this,
+      this
     );
     eventHelper.add(
       dataSourceCollection.dataSourceRemoved,
       CesiumWidget.prototype._dataSourceRemoved,
-      this,
+      this
     );
   } catch (error) {
     if (showRenderLoopErrors) {
@@ -703,10 +703,10 @@ Object.defineProperties(CesiumWidget.prototype, {
   },
 
   /**
-   * Gets or sets the target frame rate of the widget when <code>useDefaultRenderLoop</code>
-   * is true. If undefined, the browser's requestAnimationFrame implementation
-   * determines the frame rate.  If defined, this value must be greater than 0.  A value higher
-   * than the underlying requestAnimationFrame implementation will have no effect.
+   *当<code> underefaultrenderloop </code>时获取或设置小部件的目标帧速率
+   *是真的。如果未定义，则浏览器的requestAnimationFrame frame实现
+   *确定帧速率。如果定义，此值必须大于0。一个值更高
+   *与基础请求框架实现相比，无效。
    * @memberof CesiumWidget.prototype
    *
    * @type {number}
@@ -719,7 +719,7 @@ Object.defineProperties(CesiumWidget.prototype, {
       //>>includeStart('debug', pragmas.debug);
       if (value <= 0) {
         throw new DeveloperError(
-          "targetFrameRate must be greater than 0, or undefined.",
+          "targetFrameRate must be greater than 0, or undefined."
         );
       }
       //>>includeEnd('debug');
@@ -937,7 +937,7 @@ CesiumWidget.prototype.showErrorPanel = function (title, message, error) {
   function resizeCallback() {
     errorPanelScroller.style.maxHeight = `${Math.max(
       Math.round(element.clientHeight * 0.9 - 100),
-      30,
+      30
     )}px`;
   }
   resizeCallback();
@@ -1096,12 +1096,12 @@ CesiumWidget.prototype.render = function () {
  */
 CesiumWidget.prototype._dataSourceAdded = function (
   dataSourceCollection,
-  dataSource,
+  dataSource
 ) {
   const entityCollection = dataSource.entities;
   entityCollection.collectionChanged.addEventListener(
     CesiumWidget.prototype._onEntityCollectionChanged,
-    this,
+    this
   );
 };
 
@@ -1110,12 +1110,12 @@ CesiumWidget.prototype._dataSourceAdded = function (
  */
 CesiumWidget.prototype._dataSourceRemoved = function (
   dataSourceCollection,
-  dataSource,
+  dataSource
 ) {
   const entityCollection = dataSource.entities;
   entityCollection.collectionChanged.removeEventListener(
     CesiumWidget.prototype._onEntityCollectionChanged,
-    this,
+    this
   );
 
   if (defined(this.trackedEntity)) {
@@ -1153,7 +1153,7 @@ CesiumWidget.prototype._onTick = function (clock) {
     const trackedState = this._dataSourceDisplay.getBoundingSphere(
       trackedEntity,
       true,
-      boundingSphereScratch,
+      boundingSphereScratch
     );
     if (trackedState === BoundingSphereState.DONE) {
       entityView.update(time, boundingSphereScratch);
@@ -1167,7 +1167,7 @@ CesiumWidget.prototype._onTick = function (clock) {
 CesiumWidget.prototype._onEntityCollectionChanged = function (
   collection,
   added,
-  removed,
+  removed
 ) {
   const length = removed.length;
   for (let i = 0; i < length; i++) {
@@ -1199,7 +1199,7 @@ CesiumWidget.prototype._onDataSourceChanged = function (dataSource) {
  */
 CesiumWidget.prototype._onDataSourceAdded = function (
   dataSourceCollection,
-  dataSource,
+  dataSource
 ) {
   if (this._automaticallyTrackDataSourceClocks) {
     this.clockTrackedDataSource = dataSource;
@@ -1208,7 +1208,7 @@ CesiumWidget.prototype._onDataSourceAdded = function (
   const removalFunc = this._eventHelper.add(
     dataSource.changedEvent,
     CesiumWidget.prototype._onDataSourceChanged,
-    this,
+    this
   );
   this._dataSourceChangedListeners[id] = removalFunc;
 };
@@ -1218,7 +1218,7 @@ CesiumWidget.prototype._onDataSourceAdded = function (
  */
 CesiumWidget.prototype._onDataSourceRemoved = function (
   dataSourceCollection,
-  dataSource,
+  dataSource
 ) {
   const resetClock = this.clockTrackedDataSource === dataSource;
   const id = dataSource.entities.id;
@@ -1228,7 +1228,7 @@ CesiumWidget.prototype._onDataSourceRemoved = function (
     const numDataSources = dataSourceCollection.length;
     if (this._automaticallyTrackDataSourceClocks && numDataSources > 0) {
       this.clockTrackedDataSource = dataSourceCollection.get(
-        numDataSources - 1,
+        numDataSources - 1
       );
     } else {
       this.clockTrackedDataSource = undefined;
@@ -1430,7 +1430,7 @@ function updateZoomTarget(widget) {
       zoomOptions.offset = new HeadingPitchRange(
         0.0,
         -0.5,
-        boundingSphere.radius,
+        boundingSphere.radius
       );
     }
 
@@ -1466,12 +1466,12 @@ function updateZoomTarget(widget) {
     }
 
     // Otherwise, the first "frame" needs to have been rendered
-    const removeEventListener = target.frameChanged.addEventListener(
-      function (timeDynamicPointCloud) {
-        zoomToBoundingSphere(timeDynamicPointCloud.boundingSphere);
-        removeEventListener();
-      },
-    );
+    const removeEventListener = target.frameChanged.addEventListener(function (
+      timeDynamicPointCloud
+    ) {
+      zoomToBoundingSphere(timeDynamicPointCloud.boundingSphere);
+      removeEventListener();
+    });
     return;
   }
 
@@ -1511,7 +1511,7 @@ function updateZoomTarget(widget) {
     const state = widget._dataSourceDisplay.getBoundingSphere(
       entities[i],
       false,
-      boundingSphereScratch,
+      boundingSphereScratch
     );
 
     if (state === BoundingSphereState.PENDING) {
@@ -1565,7 +1565,7 @@ function updateTrackedEntity(widget) {
   //computed. In this case, we will track the entity once it comes back into existence.
   const currentPosition = Property.getValueOrUndefined(
     trackedEntity.position,
-    currentTime,
+    currentTime
   );
 
   if (!defined(currentPosition)) {
@@ -1577,7 +1577,7 @@ function updateTrackedEntity(widget) {
   const state = widget._dataSourceDisplay.getBoundingSphere(
     trackedEntity,
     false,
-    boundingSphereScratch,
+    boundingSphereScratch
   );
   if (state === BoundingSphereState.PENDING) {
     return;
